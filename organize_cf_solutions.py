@@ -73,22 +73,30 @@ for p in problems:
 
 print(f"Loaded {len(problem_lookup)} problems from Codeforces.")
 
-# ---- STEP 2: find your solution files ----
+# ---- STEP 2: find ALL solution files, wherever they are ----
+# Scans root AND every topic subfolder, so re-running never "loses" files
+# that were already sorted in a previous run.
 FILENAME_RE = re.compile(r"^(\d+[A-Za-z]\d?)\.(cpp|py|java|c|cc)$", re.IGNORECASE)
+SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", ".vscode"}
 
-solution_files = []
-for fname in os.listdir(SOLUTIONS_DIR):
-    m = FILENAME_RE.match(fname)
-    if m:
-        solution_files.append((fname, m.group(1).upper()))
+solution_files = []  # (full_path, filename, code, current_folder_or_None_if_root)
+for root, dirs, files in os.walk(SOLUTIONS_DIR):
+    dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
+    rel_root = os.path.relpath(root, SOLUTIONS_DIR)
+    for fname in files:
+        m = FILENAME_RE.match(fname)
+        if m:
+            current_folder = None if rel_root == "." else rel_root
+            solution_files.append((os.path.join(root, fname), fname, m.group(1).upper(), current_folder))
 
-print(f"Found {len(solution_files)} solution files to organize.")
+print(f"Found {len(solution_files)} solution files total (root + subfolders).")
 
-# ---- STEP 3: move each file into a topic folder + collect README rows ----
+# ---- STEP 3: move any NEW root-level files into a topic folder; ----
+# ---- collect README rows for ALL files (old + new) ----
 readme_rows = []
 not_found = []
 
-for fname, code in solution_files:
+for full_path, fname, code, current_folder in solution_files:
     problem = problem_lookup.get(code)
     if not problem:
         not_found.append(fname)
@@ -98,29 +106,38 @@ for fname, code in solution_files:
     rating = problem.get("rating", "N/A")
     name = problem.get("name", "Unknown")
 
-    # pick the first tag that maps to a known folder, else 'misc'
-    folder = DEFAULT_FOLDER
-    for t in tags:
-        if t in TAG_TO_FOLDER:
-            folder = TAG_TO_FOLDER[t]
-            break
-
-    os.makedirs(os.path.join(SOLUTIONS_DIR, folder), exist_ok=True)
-    dest = os.path.join(SOLUTIONS_DIR, folder, fname)
-    shutil.move(os.path.join(SOLUTIONS_DIR, fname), dest)
+    if current_folder is None:
+        # File is loose at root -> figure out its folder and move it
+        folder = DEFAULT_FOLDER
+        for t in tags:
+            if t in TAG_TO_FOLDER:
+                folder = TAG_TO_FOLDER[t]
+                break
+        os.makedirs(os.path.join(SOLUTIONS_DIR, folder), exist_ok=True)
+        dest = os.path.join(SOLUTIONS_DIR, folder, fname)
+        shutil.move(full_path, dest)
+        print(f"  {fname} -> {folder}/ (newly sorted)")
+    else:
+        # Already sorted in a previous run -> leave it, just record it
+        folder = current_folder
 
     link = f"https://codeforces.com/problemset/problem/{problem['contestId']}/{problem['index']}"
     readme_rows.append(
         (code, name, rating, ", ".join(tags), folder, link)
     )
-    print(f"  {fname} -> {folder}/")
 
 # ---- STEP 4: write README.md summary table ----
 readme_path = os.path.join(SOLUTIONS_DIR, "README.md")
 with open(readme_path, "w", encoding="utf-8") as f:
     f.write("# Codeforces Solutions\n\n")
-    f.write(f"A collection of {len(readme_rows)} solved Codeforces problems, "
-            f"organized by topic.\n\n")
+    f.write(
+        f"{len(readme_rows)}+ Codeforces problems solved as part of ongoing "
+        f"competitive programming practice, organized by topic (dynamic "
+        f"programming, graphs, greedy, implementation, math, strings, and "
+        f"more). This collection reflects consistent algorithmic practice "
+        f"built up over my university years, alongside 3 university-level "
+        f"programming contest awards.\n\n"
+    )
     f.write("| Problem | Name | Rating | Tags | Folder |\n")
     f.write("|---|---|---|---|---|\n")
     for code, name, rating, tags, folder, link in sorted(readme_rows, key=lambda r: r[0]):

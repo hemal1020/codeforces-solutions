@@ -1,6 +1,6 @@
 # Codeforces Solutions
 
-A collection of 106 solved Codeforces problems, organized by topic.
+109+ Codeforces problems solved as part of ongoing competitive programming practice, organized by topic (dynamic programming, graphs, greedy, implementation, math, strings, and more). This collection reflects consistent algorithmic practice built up over my university years, alongside 3 university-level programming contest awards.
 
 | Problem | Name | Rating | Tags | Folder |
 |---|---|---|---|---|
@@ -39,6 +39,7 @@ A collection of 106 solved Codeforces problems, organized by topic.
 | [1703B](https://codeforces.com/problemset/problem/1703/B) | ICPC Balloons | 800 | data structures, implementation | `data-structures/` |
 | [1722A](https://codeforces.com/problemset/problem/1722/A) | Spell Check | 800 | implementation | `implementation/` |
 | [1742A](https://codeforces.com/problemset/problem/1742/A) | Sum | 800 | implementation | `implementation/` |
+| [1791A](https://codeforces.com/problemset/problem/1791/A) | Codeforces Checking | 800 | implementation, strings | `implementation/` |
 | [1791C](https://codeforces.com/problemset/problem/1791/C) | Prepend and Append | 800 | implementation, two pointers | `implementation/` |
 | [1829B](https://codeforces.com/problemset/problem/1829/B) | Blank Space | 800 | implementation | `implementation/` |
 | [1857A](https://codeforces.com/problemset/problem/1857/A) | Array Coloring | 800 | greedy, math | `greedy/` |
@@ -51,6 +52,7 @@ A collection of 106 solved Codeforces problems, organized by topic.
 | [1913B](https://codeforces.com/problemset/problem/1913/B) | Swap and Delete | 1000 | strings | `strings/` |
 | [1926A](https://codeforces.com/problemset/problem/1926/A) | Vlad and the Best of Five | 800 | implementation | `implementation/` |
 | [1950A](https://codeforces.com/problemset/problem/1950/A) | Stair, Peak, or Neither? | 800 | implementation | `implementation/` |
+| [1999A](https://codeforces.com/problemset/problem/1999/A) | A+B Again? | 800 | implementation, math | `implementation/` |
 | [2009A](https://codeforces.com/problemset/problem/2009/A) | Minimize! | 800 | brute force, math | `implementation/` |
 | [200B](https://codeforces.com/problemset/problem/200/B) | Drinks | 800 | implementation, math | `implementation/` |
 | [208A](https://codeforces.com/problemset/problem/208/A) | Dubstep | 900 | strings | `strings/` |
@@ -59,6 +61,7 @@ A collection of 106 solved Codeforces problems, organized by topic.
 | [230A](https://codeforces.com/problemset/problem/230/A) | Dragons | 1000 | greedy, sortings | `greedy/` |
 | [230B](https://codeforces.com/problemset/problem/230/B) | T-primes | 1300 | binary search, implementation, math, number theory | `binary-search/` |
 | [25A](https://codeforces.com/problemset/problem/25/A) | IQ test | 1300 | brute force | `implementation/` |
+| [266A](https://codeforces.com/problemset/problem/266/A) | Stones on the Table | 800 | implementation | `implementation/` |
 | [266B](https://codeforces.com/problemset/problem/266/B) | Queue at the School | 800 | constructive algorithms, graph matchings, implementation, shortest paths | `constructive/` |
 | [268A](https://codeforces.com/problemset/problem/268/A) | Games | 800 | brute force | `implementation/` |
 | [271A](https://codeforces.com/problemset/problem/271/A) | Beautiful Year | 800 | brute force | `implementation/` |
