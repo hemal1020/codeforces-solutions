@@ -3,3 +3,4 @@ __pycache__/
 .pytest_cache/
 .vscode/
 *.exe
+organize_cf_solutions.py
