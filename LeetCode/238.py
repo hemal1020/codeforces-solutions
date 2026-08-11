@@ -1,0 +1,22 @@
+class Solution(object):
+    def productExceptSelf(self, nums):
+        n = len(nums)
+        result = [1] * n
+
+        # Prefix product
+        # result[i] will store the product of elements before i
+        prefix = 1
+
+        for i in range(n):
+            result[i] = prefix
+            prefix *= nums[i]
+
+        # Suffix product
+        # Multiply result[i] by the product of elements after i
+        suffix = 1
+
+        for i in range(n - 1, -1, -1):
+            result[i] *= suffix
+            suffix *= nums[i]
+
+        return result
