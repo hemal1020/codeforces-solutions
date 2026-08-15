@@ -4,10 +4,5 @@ __pycache__/
 .vscode/
 *.exe
 organize_cf_solutions.py
-array.py
-Bisect.py
-INPUT.py
-loop.py
-prime.py
 
 
