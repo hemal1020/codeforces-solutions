@@ -10,4 +10,4 @@ class Solution(object):
 
 
 sol = Solution()
-print(sol.twoSum([0,2,9,8,5,3,15,78,7,4],7))
+print(sol.twoSum([0,2,9,8,5,3,15,78,7,4],5))
